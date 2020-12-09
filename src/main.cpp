@@ -10,6 +10,7 @@ void secondPattern(int Time);
 void thirdPattern(int Time);
 void fourthPattern(int Time);
 void fifthPattern(int Time);
+void song();
 
 void setup() {
   // put your setup code here, to run once:
@@ -20,11 +21,12 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  firstPattern(1000);
-  //secondPattern();
-  //thirdPattern();
-  //fourthPattern(250);
+  //firstPattern(500);
+  //secondPattern(500);
+  //thirdPattern(100);
+  //fourthPattern(500);
   //fifthPattern(250);
+  song();
 }
 
 void firstPattern(int Time) {
@@ -63,7 +65,7 @@ void secondPattern(int Time){
 }
 
 void thirdPattern(int Time){
-  for(int i = 0; i < 25; i++){
+  for(int i = 0; i < 20; i++){
     if(i % 2 == 0)
       digitalWrite(LED[0],HIGH);
     else
@@ -74,10 +76,10 @@ void thirdPattern(int Time){
   }
   for(int i = 1; i < numLeds; i++){
     digitalWrite(LED[i],HIGH);
-    delay(Time);
+    delay(50);
     digitalWrite(LED[i],LOW);
   }
-  for(int i = 0; i < 25; i++){
+  for(int i = 0; i < 20; i++){
     if(i % 2 == 0)
       digitalWrite(LED[numLeds - 1],HIGH);
     else
@@ -88,7 +90,7 @@ void thirdPattern(int Time){
   }
   for(int i = numLeds - 1; i >= 0; i--){
     digitalWrite(LED[i],HIGH);
-    delay(Time);
+    delay(50);
     digitalWrite(LED[i],LOW);
   }
 }
@@ -136,4 +138,28 @@ void fifthPattern(int Time){
       digitalWrite(LED[7],LOW);
     }
   }
+}
+
+void song(){
+  firstPattern(450);
+  firstPattern(450);
+  secondPattern(300);
+  fourthPattern(300);
+  secondPattern(300);
+  fourthPattern(300);
+  secondPattern(300);
+  fourthPattern(300);
+  delay(1000);
+  thirdPattern(100);
+  fifthPattern(100);
+  fifthPattern(100);
+  firstPattern(450);
+  fourthPattern(450);
+  firstPattern(450);
+  secondPattern(450);
+  firstPattern(450);
+  fifthPattern(450);
+  fifthPattern(450);
+  fifthPattern(450);
+  firstPattern(450);
 }
