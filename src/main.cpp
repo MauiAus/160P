@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-int LED[] = {7,8,9,10}; //sets the outputs for pins 7-10
-int inPin[] = {2,3,4,5,6}; //sets the inputs for pins 2-6
+int LED[] = {2,3,4,5}; //sets the outputs for pins 7-10
+int inPin[] = {6,7,8,9,10}; //sets the inputs for pins 2-6
 
 //initializes the switch value to 0
 int SW1 = 0;
@@ -35,14 +35,14 @@ void loop() {
   SW3 = digitalRead(inPin[2]);
   SW4 = digitalRead(inPin[3]);
   SW5 = digitalRead(inPin[4]);
-  
-  if(SW1 == HIGH){
+
+  if(SW2 == HIGH){
     delay(1000);
     if(BCD < 9){
       BCD++;
     }
   }
-  if(SW2 == HIGH){
+  if(SW1 == HIGH){
     delay(1000);
     if(BCD > -1){
       BCD--;
