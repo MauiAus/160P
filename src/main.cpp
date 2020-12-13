@@ -48,6 +48,13 @@ void loop() {
         digitalWrite(LED[i],LOW);
     }
   }  
+
+  if(SW5 == HIGH){
+    BCD = 0;
+    for(int i = 0; i < 4; i++)
+      digitalWrite(LED[i],LOW);
+  }
+
   int a[4];
   int n;
 
