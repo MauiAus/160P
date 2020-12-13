@@ -1,14 +1,16 @@
 #include <Arduino.h>
 
-int LED[] = {7,8,9,10};
-int inPin[] = {2,3,4,5,6};
+int LED[] = {7,8,9,10}; //sets the outputs for pins 7-10
+int inPin[] = {2,3,4,5,6}; //sets the inputs for pins 2-6
 
+//initializes the switch value to 0
 int SW1 = 0;
 int SW2 = 0;
 int SW3 = 0;
 int SW4 = 0;
 int SW5 = 0;
 
+//initializes BCD to 0
 int BCD = 0;
 
 int grayConv(int x);
@@ -16,8 +18,8 @@ int excess3Conv(int x);
 
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
+  //sets the pinMode for the LEDs and inPins
   for(int i = 0; i < 4; i++){
     pinMode(LED[i],OUTPUT);
   }
@@ -27,13 +29,13 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  //sets the value of SW1-5 to the input pins
   SW1 = digitalRead(inPin[0]);
   SW2 = digitalRead(inPin[1]);
   SW3 = digitalRead(inPin[2]);
   SW4 = digitalRead(inPin[3]);
   SW5 = digitalRead(inPin[4]);
-
+  
   if(SW1 == HIGH){
     delay(1000);
     if(BCD < 9){
