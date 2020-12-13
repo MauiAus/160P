@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-int LED[] = {2,3,4,5}; //sets the outputs for pins 7-10
+int LED[] = {5,4,3,2}; //sets the outputs for pins 7-10
 int inPin[] = {6,7,8,9,10}; //sets the inputs for pins 2-6
 
 //initializes the switch value to 0
@@ -67,7 +67,9 @@ void loop() {
     n = excess3Conv(BCD);
   }
   else{
-    n = BCD; 
+    n = BCD;
+    for(int i = 0; i < 4; i++)
+      digitalWrite(LED[i],LOW); 
   }
   for(int i=0; n>0; i++)    
   {
