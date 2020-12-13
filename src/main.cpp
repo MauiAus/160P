@@ -11,7 +11,9 @@ int SW5 = 0;
 
 int BCD = 0;
 
-int greyConv(int x);
+int grayConv(int x);
+int excess3Conv(int x);
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -47,7 +49,17 @@ void loop() {
     }
   }  
   int a[4];
-  int n = BCD; 
+  int n;
+
+  if(SW3 == HIGH){
+    n = grayConv(BCD);
+  }
+  else if(SW4 == HIGH){
+    n = excess3Conv(BCD);
+  }
+  else{
+    n = BCD; 
+  }
   for(int i=0; n>0; i++)    
   {
     a[i]=n%2;    
@@ -62,7 +74,7 @@ void loop() {
   }    
 }
 
-int greyConv(int x){
+int grayConv(int x){
   switch (x)
   {
   case 0:
@@ -108,4 +120,8 @@ int greyConv(int x){
   default:
     break;
   }
+}
+
+int excess3Conv(int x){
+  return x + 3;
 }
