@@ -2,13 +2,13 @@
 
 int sw = 0;//button
 //SSD pins
-int pinA = 0;
-int pinB = 0;
-int pinC = 0;
-int pinD = 0;
-int pinE = 0;
-int pinF = 0;
-int pinG = 0;
+int pinA = 5;
+int pinB = 6;
+int pinC = 7;
+int pinD = 8;
+int pinE = 9;
+int pinF = 4;
+int pinG = 3;
 //Stepper pins
 int stp_pin1 = 10;
 int stp_pin2 = 11;
@@ -16,16 +16,32 @@ int stp_pin3 = 12;
 int stp_pin4 = 13;
 
 int stp_ctr = 0;//stepper counter
-int park_ctr = 0;//Parking counter
+int park_ctr = 9;//Parking counter
 
 void displaySSD(int ctr);
+void OneStep(bool dir);
 
 void setup() {
-  // put your setup code here, to run once:
+  pinMode(pinA, OUTPUT);     
+  pinMode(pinB, OUTPUT);     
+  pinMode(pinC, OUTPUT);     
+  pinMode(pinD, OUTPUT);     
+  pinMode(pinE, OUTPUT);     
+  pinMode(pinF, OUTPUT);     
+  pinMode(pinG, OUTPUT);  
+  pinMode(stp_pin1, OUTPUT);
+  pinMode(stp_pin2, OUTPUT);
+  pinMode(stp_pin3, OUTPUT);
+  pinMode(stp_pin4, OUTPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+}
+
+void park_dec(){
+  if(park_ctr >= 0)
+    park_ctr--;
 }
 
 //function to create one step
