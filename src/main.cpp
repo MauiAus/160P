@@ -1,6 +1,8 @@
 #include <Arduino.h>
 
-int sw = 0;//button
+int sw = 0;//button val
+int inpin = 2;
+
 //SSD pins
 int pinA = 5;
 int pinB = 6;
@@ -20,6 +22,9 @@ int park_ctr = 9;//Parking counter
 
 void displaySSD(int ctr);
 void OneStep(bool dir);
+void park_dec();
+void openG();
+void closeG();
 
 void setup() {
   pinMode(pinA, OUTPUT);     
@@ -36,7 +41,19 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  sw = digitalRead(inpin);
+
+  if(sw == HIGH)
+    park_dec;
+  
+  displaySSD(park_ctr);
+
+  if(park_ctr == 0){
+    closeG();
+  }
+  else if(park_ctr == 9){
+    openG();
+  }
 }
 
 void park_dec(){
@@ -212,4 +229,19 @@ void displaySSD(int ctr){
     break;
   }
 }
-//function to check if the parking is full
+
+void openG(){
+  if(stp_ctr >= 0)
+  {
+    OneStep(false);
+    stp_ctr--;
+    delay(2);
+  }
+}
+
+void closeG(){
+  if(stp_ctr <= 500)
+    OneStep(true);
+    stp_ctr++;
+    delay(2);
+}
