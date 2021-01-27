@@ -24,8 +24,6 @@ int stp_steps = 0;
 void displaySSD(int ctr);
 void OneStep(bool dir);
 void park_dec();
-void openG();
-void closeG();
 
 void setup() {
   pinMode(pinA, OUTPUT);     
@@ -256,24 +254,4 @@ void displaySSD(int ctr){
     break;
   }
   delay(2);
-}
-
-void ssdOff(){
-
-}
-
-void openG(){
-  if(stp_steps >= 0)
-  {
-    OneStep(true);
-    stp_steps--;
-  }
-}
-
-void closeG(){
-  if(stp_steps < 500)
-  {
-    OneStep(false);
-    stp_steps++;
-  }
 }
