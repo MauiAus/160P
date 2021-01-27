@@ -19,6 +19,7 @@ int stp_pin4 = 13;
 
 int stp_ctr = 0;//stepper counter
 int park_ctr = 9;//Parking counter
+int stp_steps = 0;
 
 void displaySSD(int ctr);
 void OneStep(bool dir);
@@ -38,27 +39,44 @@ void setup() {
   pinMode(stp_pin2, OUTPUT);
   pinMode(stp_pin3, OUTPUT);
   pinMode(stp_pin4, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
   sw = digitalRead(inpin);
 
   if(sw == HIGH)
-    park_dec;
+    park_dec();
   
-  displaySSD(park_ctr);
-
   if(park_ctr == 0){
-    closeG();
+    //Serial.print(stp_steps);
+    //closeG();
+    //stp_steps++;
+    
+    if(stp_steps < 1000)
+    {
+      OneStep(false);
+      stp_steps++;
+      delay(2);
+    }
+    
+    //OneStep(false);
+
+    //closeG();
   }
-  else if(park_ctr == 9){
-    openG();
-  }
+
+
+  displaySSD(park_ctr);
+  //if(park_ctr == 0)
+  //  closeG();
+  //else if(park_ctr == 9)
+  //  openG();
 }
 
 void park_dec(){
   if(park_ctr >= 0)
     park_ctr--;
+  delay(500);
 }
 
 //function to create one step
@@ -120,8 +138,11 @@ void OneStep(bool dir){
       }
     }
   stp_ctr++;
-  if(stp_ctr>3)
+  if(stp_ctr > 3){
     stp_ctr = 0;
+  }
+  stp_steps++;
+  delay(10);
 }
 
 //function to display the SSD
@@ -129,12 +150,12 @@ void displaySSD(int ctr){
   switch (ctr)
   {
   case 0:
-    digitalWrite(pinA, HIGH);   
-    digitalWrite(pinB, HIGH);   
-    digitalWrite(pinC, HIGH);   
-    digitalWrite(pinD, HIGH);   
-    digitalWrite(pinE, HIGH);   
-    digitalWrite(pinF, HIGH);   
+    digitalWrite(pinA, LOW);   
+    digitalWrite(pinB, LOW);   
+    digitalWrite(pinC, LOW);   
+    digitalWrite(pinD, LOW);   
+    digitalWrite(pinE, LOW);   
+    digitalWrite(pinF, LOW);   
     digitalWrite(pinG, LOW);
     break;
   case 1:
@@ -219,29 +240,34 @@ void displaySSD(int ctr){
     digitalWrite(pinG, HIGH); 
     break;
   default:
-    digitalWrite(pinA, HIGH);   
-    digitalWrite(pinB, HIGH);   
-    digitalWrite(pinC, HIGH);   
-    digitalWrite(pinD, HIGH);   
-    digitalWrite(pinE, HIGH);   
-    digitalWrite(pinF, HIGH);   
+    digitalWrite(pinA, LOW);   
+    digitalWrite(pinB, LOW);   
+    digitalWrite(pinC, LOW);   
+    digitalWrite(pinD, LOW);   
+    digitalWrite(pinE, LOW);   
+    digitalWrite(pinF, LOW);   
     digitalWrite(pinG, LOW);
     break;
   }
+  delay(2);
+}
+
+void ssdOff(){
+
 }
 
 void openG(){
-  if(stp_ctr >= 0)
+  if(stp_steps >= 0)
   {
-    OneStep(false);
-    stp_ctr--;
-    delay(2);
+    OneStep(true);
+    stp_steps--;
   }
 }
 
 void closeG(){
-  if(stp_ctr <= 500)
-    OneStep(true);
-    stp_ctr++;
-    delay(2);
+  if(stp_steps < 500)
+  {
+    OneStep(false);
+    stp_steps++;
+  }
 }
