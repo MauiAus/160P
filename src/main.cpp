@@ -46,19 +46,25 @@ void loop() {
   sw = digitalRead(inpin);
 
   if(sw == HIGH)
+  {
+    if(park_ctr <= 0){
+      displaySSD(-1);
+      for(int i = 0; i < 500; i++)
+        OneStep(true);
+      park_ctr = 10;
+      stp_steps = 0;
+    }
     park_dec();
+
+  }
   
   if(park_ctr == 0){
     //Serial.print(stp_steps);
     //closeG();
     //stp_steps++;
     
-    if(stp_steps < 1000)
-    {
+    for(stp_steps; stp_steps < 1000; stp_steps++)
       OneStep(false);
-      stp_steps++;
-      delay(2);
-    }
     
     //OneStep(false);
 
@@ -150,12 +156,12 @@ void displaySSD(int ctr){
   switch (ctr)
   {
   case 0:
-    digitalWrite(pinA, LOW);   
-    digitalWrite(pinB, LOW);   
-    digitalWrite(pinC, LOW);   
-    digitalWrite(pinD, LOW);   
-    digitalWrite(pinE, LOW);   
-    digitalWrite(pinF, LOW);   
+    digitalWrite(pinA, HIGH);   
+    digitalWrite(pinB, HIGH);   
+    digitalWrite(pinC, HIGH);   
+    digitalWrite(pinD, HIGH);   
+    digitalWrite(pinE, HIGH);   
+    digitalWrite(pinF, HIGH);   
     digitalWrite(pinG, LOW);
     break;
   case 1:
@@ -239,7 +245,7 @@ void displaySSD(int ctr){
     digitalWrite(pinF, HIGH);   
     digitalWrite(pinG, HIGH); 
     break;
-  default:
+  case -1:
     digitalWrite(pinA, LOW);   
     digitalWrite(pinB, LOW);   
     digitalWrite(pinC, LOW);   
