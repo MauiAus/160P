@@ -1,31 +1,20 @@
-#define water_sensor 3
-#define signal_pin A5
-#include <Servo.h>
+#define relayPin 4
+#define inPin 3
 
-int value = 0;
-Servo toggle;
-
-int pos = 0;
-
-void setup(){
-  Serial.begin(9600);
-  pinMode(water_sensor, OUTPUT);
-  digitalWrite(water_sensor, LOW);
-  toggle.attach(12);
-  toggle.write(90);
+int sw = 0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(relayPin, OUTPUT);
+  pinMode(inPin, INPUT);
 }
 
-void loop(){
-  digitalWrite(water_sensor, HIGH);
-  delay(10);
-  value = analogRead(signal_pin);
-  digitalWrite(water_sensor, LOW);
-  if(value < 90){
-    toggle.write(180);
-  }
+void loop() {
+  // put your main code here, to run repeatedly:
+  sw = digitalRead(inPin);
+
+  if(sw == HIGH)
+    digitalWrite(relayPin, HIGH);
   else
-    toggle.write(90);
-  Serial.print("Sensor value: ");
-  Serial.println(value);
-  delay(5000);
+    digitalWrite(relayPin, LOW);
+  delay(1000);
 }
